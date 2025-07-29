@@ -1,32 +1,44 @@
-/**
- * Import function triggers from their respective submodules:
- *
- * const {onCall} = require("firebase-functions/v2/https");
- * const {onDocumentWritten} = require("firebase-functions/v2/firestore");
- *
- * See a full list of supported triggers at https://firebase.google.com/docs/functions
- */
+// index.js
 
-const {setGlobalOptions} = require("firebase-functions");
-const {onRequest} = require("firebase-functions/https");
+const { setGlobalOptions } = require("firebase-functions");
+const { onRequest } = require("firebase-functions/v2/https");
 const logger = require("firebase-functions/logger");
+const express = require("express");
+const cors = require("cors");
+const admin = require("firebase-admin");
 
-// For cost control, you can set the maximum number of containers that can be
-// running at the same time. This helps mitigate the impact of unexpected
-// traffic spikes by instead downgrading performance. This limit is a
-// per-function limit. You can override the limit for each function using the
-// `maxInstances` option in the function's options, e.g.
-// `onRequest({ maxInstances: 5 }, (req, res) => { ... })`.
-// NOTE: setGlobalOptions does not apply to functions using the v1 API. V1
-// functions should each use functions.runWith({ maxInstances: 10 }) instead.
-// In the v1 API, each function can only serve one request per container, so
-// this will be the maximum concurrent request count.
+admin.initializeApp();
+const db = admin.firestore();
+
+// Global Firebase Functions Options
 setGlobalOptions({ maxInstances: 10 });
 
-// Create and deploy your first functions
-// https://firebase.google.com/docs/functions/get-started
+// Initialize Express App
+const app = express();
+app.use(cors({ origin: true }));
+app.use(express.json());
 
-// exports.helloWorld = onRequest((request, response) => {
-//   logger.info("Hello logs!", {structuredData: true});
-//   response.send("Hello from Firebase!");
-// });
+// Log all incoming requests
+app.use((req, res, next) => {
+  logger.info(`Incoming request: ${req.method} ${req.url}`);
+  next();
+});
+
+// 🔁 Routes
+const adminRoutes = require("./routes/adminRoutes");
+const attendanceRoutes = require("./routes/attendanceRoutes");
+const userRoutes = require("./routes/userRoutes"); // Assuming you renamed one to userRoutes
+
+// 📌 Register routes
+app.use("/admin", adminRoutes);
+app.use("/attendance", attendanceRoutes);
+app.use("/users", userRoutes);
+
+// 🌐 Health Check
+app.get("/", (req, res) => {
+  logger.info("Health check route hit.");
+  res.send("✅ Attendance API is working!");
+});
+
+// 📤 Export the Cloud Function
+exports.api = onRequest(app);
