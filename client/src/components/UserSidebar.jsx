@@ -10,8 +10,8 @@ import {
   LogOut,
 } from "lucide-react";
 
-import fullLogo from "../assets/icons/logo.png";
-import halfLogo from "../assets/icons/logo-half.jpg";
+import fullLogo from "../../../shared/utils/icons/logo.png";
+import halfLogo from "../../../shared/utils/icons/logo-half.jpg";
 
 export default function Sidebar() {
   const [isOpen, setIsOpen] = useState(false);

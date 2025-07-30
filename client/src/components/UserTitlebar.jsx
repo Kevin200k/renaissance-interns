@@ -1,5 +1,5 @@
 import { ChevronDown, HelpCircle } from "lucide-react";
-import timelyLogo from "../assets/icons/timely.png";
+import timelyLogo from "../../../shared/utils/icons/timely.png";
 
 export default function UserTitleBar() {
   const userName = "Michael";

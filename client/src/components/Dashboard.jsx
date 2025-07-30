@@ -1,4 +1,4 @@
-import AttendanceIcon from "../assets/icons/attendance.svg";
+import AttendanceIcon from "../../../shared/utils/icons/attendance.svg";
 import {
   CalendarDays,
   Percent,
@@ -74,7 +74,7 @@ export default function Dashboard() {
         {/* Right Column: Stats + Summary + Chart */}
         <div className="flex flex-col gap-6 lg:w-1/2">
           {/* Summary Cards */}
-          {/* <section className="grid grid-cols-2 gap-4">
+          <section className="grid grid-cols-2 gap-4">
             <SummaryCard
               title="Days Present"
               value="42"
@@ -95,10 +95,10 @@ export default function Dashboard() {
               value="9:02 AM"
               icon={<Clock className="w-5 h-5 text-blue-500" />}
             />
-          </section> */}
+          </section>
 
           {/* Personalized Summary */}
-          {/* <section className="bg-white rounded-xl shadow-lg p-6 flex flex-col gap-2">
+          <section className="bg-white rounded-xl shadow-lg p-6 flex flex-col gap-2">
             <div className="flex items-center gap-4">
               <div className="p-3 bg-purple-50 rounded-full">
                 <Smile className="text-purple-600 w-6 h-6" />
@@ -113,10 +113,10 @@ export default function Dashboard() {
             <p className="text-sm text-gray-600 mt-2">
               Great job maintaining your streak. Keep it going — consistency builds habits!
             </p>
-          </section> */}
+          </section>
 
           {/* Weekly Chart */}
-          {/* <section className="bg-white rounded-xl shadow-lg p-6">
+          <section className="bg-white rounded-xl shadow-lg p-6">
             <h3 className="text-lg font-semibold text-gray-700 mb-4">Weekly Check-In Times</h3>
             <ResponsiveContainer width="100%" height={220}>
               <LineChart data={attendanceData}>
@@ -144,7 +144,7 @@ export default function Dashboard() {
                 />
               </LineChart>
             </ResponsiveContainer>
-          </section> */}
+          </section>
         </div>
       </div>
     </div>
