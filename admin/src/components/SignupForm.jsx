@@ -1,7 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { FcGoogle } from 'react-icons/fc';
 
 const SignupForm = () => {
+
+  const [userEmail, setUserEmail] = useState('')
+  const [password, setPassword] = useState('')
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4">
       <div className="w-full max-w-md bg-white p-8 rounded-2xl shadow-lg">
