@@ -1,7 +1,7 @@
 // src/pages/SignupPage.jsx
 import SignupForm from "../components/SignupForm";
-import Logo from "../assets/icons/logo.png"; // Adjust the path as necessary
-import signup_image from "../assets/icons/signup.svg"; // Adjust the path as necessary
+import Logo from "../../../shared/utils/icons/logo.png"; // Adjust the path as necessary
+import signup_image from "../../../shared/utils/icons/signup.svg";
 
 export default function SignupPage() {
   return (
