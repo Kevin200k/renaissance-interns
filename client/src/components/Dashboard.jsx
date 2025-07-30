@@ -5,7 +5,6 @@ import {
   Flame,
   Clock,
   Smile,
-  HelpCircle,
 } from "lucide-react";
 import {
   LineChart,
@@ -17,7 +16,7 @@ import {
   ResponsiveContainer,
 } from "recharts";
 
-// Dummy data for weekly check-in chart
+// Dummy check-in data
 const attendanceData = [
   { day: "Mon", time: 9.1 },
   { day: "Tue", time: 8.3 },
@@ -28,68 +27,54 @@ const attendanceData = [
   { day: "Sun", time: 9.0 },
 ];
 
-// Illustration (replace if needed)
-const illustrationUrl = AttendanceIcon;
-
 export default function Dashboard() {
   const userName = "Michael";
+  const today = new Date().toLocaleDateString("en-US", {
+    weekday: "long",
+    month: "short",
+    day: "numeric",
+  });
 
   return (
     <div className="min-h-screen bg-gray-50 p-6 flex flex-col space-y-6">
-      {/* --- Title Bar --- */}
-      <div className="flex items-center hidden justify-between bg-white">
-        {/* Left: Logo & Help */}
-        <div className="flex items-center gap-4">
-          <h1 className="text-2xl font-bold text-purple-700 tracking-tight">
-            Dashboard
-          </h1>
-          <button
-            className="flex items-center gap-1 text-sm text-gray-600 hover:text-purple-600 transition"
-            onClick={() => alert("Help modal or route here")}
-          >
-            <HelpCircle className="w-4 h-4" />
-            Help
-          </button>
-        </div>
+      
+      {/* Greeting */}
+      {/* <header>
+        <h1 className="text-2xl font-semibold text-gray-900">Hi, {userName} 👋</h1>
+        <p className="text-sm text-gray-500">{today}</p>
+      </header> */}
 
-        {/* Right: User Avatar */}
-        <div className="flex items-center gap-2">
-          <span className="text-sm text-gray-700 hidden sm:inline">Hi, {userName}</span>
-          <div className="w-9 h-9 rounded-full bg-purple-100 flex items-center justify-center text-purple-700 font-semibold text-base">
-            {userName[0]}
-          </div>
-        </div>
-      </div>
+      {/* Dashboard Layout */}
+      <div className="flex flex-col lg:flex-row gap-6 flex-grow">
+        
+        {/* Left Column: CTA + Illustration */}
+        <div className="flex flex-col gap-6 lg:w-1/2">
+          {/* Attendance CTA */}
+          <section>
+              <div className="bg-white rounded-xl shadow-lg p-8 flex flex-col justify-center items-center text-center">
+                <h2 className="text-2xl font-semibold text-gray-800 mb-2">Take Attendance</h2>
+                <p className="text-gray-600 mb-6 max-w-xs">
+                  Mark your presence and keep your attendance history updated.
+                </p>
+                <button className="bg-purple-600 hover:bg-purple-700 text-white rounded-full px-8 py-3 font-semibold transition">
+                  Take Attendance
+                </button>
+              </div>
+              {/* Illustration */}
+              <div className="bg-white rounded-xl shadow-lg p-6 flex justify-center items-center">
+                <img
+                  src={AttendanceIcon}
+                  alt="Attendance Illustration"
+                  className="max-h-64 object-contain"
+                />
+              </div>
+          </section>
+                      </div>
 
-      {/* --- Dashboard Grid --- */}
-      <div className="flex flex-grow gap-8">
-        {/* Left: Attendance CTA + Illustration */}
-        <div className="flex flex-col w-1/2 space-y-8">
-          {/* CTA Card */}
-          <div className="bg-white rounded-xl shadow-lg p-8 flex flex-col justify-center items-center">
-            <h2 className="text-2xl font-semibold text-gray-800 mb-4">Take Attendance</h2>
-            <p className="text-gray-600 mb-6 text-center max-w-xs">
-              Mark attendance quickly and keep track of your daily check-ins.
-            </p>
-            <button className="bg-purple-600 hover:bg-purple-700 text-white rounded-full px-8 py-3 font-semibold transition">
-              Take Attendance
-            </button>
-          </div>
-
-          {/* Illustration Card */}
-          <div className="bg-white rounded-xl shadow-lg p-6 flex justify-center items-center">
-            <img
-              src={illustrationUrl}
-              alt="Attendance Illustration"
-              className="max-h-64 object-contain"
-            />
-          </div>
-        </div>
-
-        {/* Right: Summary Cards + Summary + Chart */}
-        <div className="flex flex-col w-1/2 space-y-6">
+        {/* Right Column: Stats + Summary + Chart */}
+        <div className="flex flex-col gap-6 lg:w-1/2">
           {/* Summary Cards */}
-          <div className="grid grid-cols-2 gap-6">
+          {/* <section className="grid grid-cols-2 gap-4">
             <SummaryCard
               title="Days Present"
               value="42"
@@ -110,10 +95,10 @@ export default function Dashboard() {
               value="9:02 AM"
               icon={<Clock className="w-5 h-5 text-blue-500" />}
             />
-          </div>
+          </section> */}
 
           {/* Personalized Summary */}
-          <div className="bg-white rounded-xl shadow-lg p-6 flex flex-col justify-between h-36">
+          {/* <section className="bg-white rounded-xl shadow-lg p-6 flex flex-col gap-2">
             <div className="flex items-center gap-4">
               <div className="p-3 bg-purple-50 rounded-full">
                 <Smile className="text-purple-600 w-6 h-6" />
@@ -125,13 +110,13 @@ export default function Dashboard() {
                 </p>
               </div>
             </div>
-            <p className="mt-4 text-sm text-gray-600">
-              Great job maintaining your streak. Remember: consistency builds habits!
+            <p className="text-sm text-gray-600 mt-2">
+              Great job maintaining your streak. Keep it going — consistency builds habits!
             </p>
-          </div>
+          </section> */}
 
-          {/* Line Chart */}
-          <div className="bg-white rounded-xl shadow-lg p-6">
+          {/* Weekly Chart */}
+          {/* <section className="bg-white rounded-xl shadow-lg p-6">
             <h3 className="text-lg font-semibold text-gray-700 mb-4">Weekly Check-In Times</h3>
             <ResponsiveContainer width="100%" height={220}>
               <LineChart data={attendanceData}>
@@ -141,7 +126,6 @@ export default function Dashboard() {
                     <stop offset="95%" stopColor="#8b5cf6" stopOpacity={0} />
                   </linearGradient>
                 </defs>
-
                 <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
                 <XAxis dataKey="day" />
                 <YAxis
@@ -160,14 +144,14 @@ export default function Dashboard() {
                 />
               </LineChart>
             </ResponsiveContainer>
-          </div>
+          </section> */}
         </div>
       </div>
     </div>
   );
 }
 
-// Reusable summary card
+// Reusable card component
 function SummaryCard({ title, value, icon }) {
   return (
     <div className="bg-white rounded-xl shadow p-5 flex items-center gap-4">
