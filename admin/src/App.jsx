@@ -1,18 +1,28 @@
 import React from 'react'
+import {
+  Route,
+  createBrowserRouter,
+  createRoutesFromElements,
+  RouterProvider
+} from 'react-router-dom'
 import SignupPage from './pages/SignupPage'
 import DashboardPage from './pages/DashboardPage'
-import AdminSidebar from './components/AdminSidebar'
+import MainLayout from './layouts/MainLayout'
 
-const App = () => {
-  return (
+const router = createBrowserRouter(
+  createRoutesFromElements(
     <>
-      {/* <SignupPage /> */}
-
-      {/* <DashboardPage /> */}
-
-      <AdminSidebar />
+      <Route path="/signup" element={<SignupPage />} />
+      
+      <Route path="/" element={<MainLayout />}>
+        <Route path="admin-dashboard" element={<DashboardPage />} />
+      </Route>
     </>
   )
+)
+
+const App = () => {
+  return <RouterProvider router={router} />
 }
 
 export default App

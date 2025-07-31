@@ -34,7 +34,7 @@ const bottomMenuItems = [
 
   return (
     <aside
-      className={`h-screen bg-white shadow-lg transition-all duration-300  top-0 left-0 z-50 flex flex-col ${
+      className={`h-screen bg-white transition-all duration-300  top-0 left-0 z-50 flex flex-col ${
         isOpen ? "w-64" : "w-20"
       }`}
     >

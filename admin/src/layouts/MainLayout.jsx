@@ -1,6 +1,6 @@
-import Sidebar from "../components/UserSidebar";
+import Sidebar from "../components/AdminSidebar";
 import Titlebar from "../../../shared/components/Titlebar";
-import Dashboard from "../components/Dashboard"; // Replace with {children} when ready
+import { Outlet } from "react-router-dom";
 
 export default function MainLayout({ children }) {
   return (
@@ -8,15 +8,13 @@ export default function MainLayout({ children }) {
       <Sidebar />
       <main className="flex-1 bg-gray-50 overflow-hidden flex flex-col">
         {/* Titlebar fixed height */}
-        <div className="mb-6 flex-shrink-0">
+        <div className="mb-6 flex-shrink-0 bg-amber-600">
           <Titlebar />
         </div>
 
         {/* Content area fills remaining space with scroll */}
         <div className="flex-1 overflow-y-auto">
-          {/* Replace Dashboard with children for routing/layout slots */}
-          <Dashboard />
-          {/* {children} */}
+          <Outlet />
         </div>
       </main>
     </div>

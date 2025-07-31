@@ -10,7 +10,7 @@ const SignupPage = () => {
           <SignupForm />
         </div>
 
-        <div className='bg-green-600 flex items-center justify-center'>
+        <div className='flex items-center justify-center'>
           <img src={ signup_image } className= "h-[70%]"alt="Undraw Illustration on this side" />
         </div>
       </section>
