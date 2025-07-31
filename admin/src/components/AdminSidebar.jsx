@@ -10,6 +10,7 @@ import {
   Menu,
   X,
 } from "lucide-react";
+import { NavLink } from 'react-router-dom';
 
 import fullLogo from "../../../shared/utils/icons/logo.png";
 import halfLogo from "../../../shared/utils/icons/logo-half.jpg";
@@ -21,10 +22,10 @@ const AdminSidebar = () => {
   const [isOpen, setIsOpen] = useState(false)
 
   const topMenuItems = [
-  { icon: <LayoutDashboard size={20} />, label: "Dashboard" },
-  { icon: <ClipboardList size={20} />, label: "Student Management" },
-  { icon: <MapPin size={20} />, label: "Location Settings" },
-  { icon: <Flag size={20} />, label: "Notification Flag" },
+  { icon: <LayoutDashboard size={20} />, label: "Dashboard", link: "admin-dashboard"  },
+  { icon: <ClipboardList size={20} />, label: "Student Management", link: "student-management" },
+  { icon: <MapPin size={20} />, label: "Location Settings", link: "location-settings" },
+  { icon: <Flag size={20} />, label: "Notification Flag", link: "flagged-notification" },
 ];
 
 const bottomMenuItems = [
@@ -68,15 +69,16 @@ const bottomMenuItems = [
         {/* Top menu items */}
         <div className="flex flex-col gap-2 text-[14.5px]">
           {topMenuItems.map((item, idx) => (
-            <div
+            <NavLink
               key={idx}
+              to={ item.link }
               className={`${
                 isOpen ? "flex items-center px-3" : "flex justify-center"
               } py-2 mx-2 rounded-md cursor-pointer text-gray-700 hover:bg-purple-50 hover:text-purple-700 transition-colors duration-200`}
             >
               <div className="w-6 flex justify-center">{item.icon}</div>
               {isOpen && <span className="ml-3">{item.label}</span>}
-            </div>
+            </NavLink>
           ))}
         </div>
 
