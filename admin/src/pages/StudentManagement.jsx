@@ -77,8 +77,16 @@ const StudentManagement = () => {
               )}
 
               {/* Avatar */}
-              <div className="w-24 h-24 rounded-full overflow-hidden mx-auto border-4 border-gray-100">
-                <img src={student.avatar} alt={student.fullName} className="w-full h-full object-cover" />
+              <div className="w-24 h-24 rounded-full overflow-hidden mx-auto border-4 border-gray-100 ">
+                <img src={student.avatar} alt={student.fullName} className="w-full h-full object-cover relative " />
+
+                <span
+                  className={`absolute top-20 right-24 h-4 w-4 rounded-full z-50 ring-2 ring-white shadow-md 
+                    ${student.presence === 'Present' ? 'bg-green-500' : 'bg-gray-500'}`}
+                  title={student.presence}
+                ></span>
+
+
               </div>
 
               {/* Info */}
@@ -88,9 +96,6 @@ const StudentManagement = () => {
               </div>
 
               <div className="text-center text-sm text-gray-600">
-                <p className={`${student.presence === 'Present' ? 'text-green-500' : 'text-red-500'} py-1 rounded text-sm font-semibold`}>
-                  {student.presence}
-                </p>
                 <span className="font-medium">Last Check-in:</span> {student.lastCheckIn || 'N/A'}
               </div>
 
