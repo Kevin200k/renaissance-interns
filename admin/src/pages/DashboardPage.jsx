@@ -28,13 +28,13 @@ const weeklyAttendanceData = [
 
 const presentAbsentStats = [
   {
-    icon: <UserX size={32} className="text-red-400" />,
+    icon: <UserX size={32} strokeWidth={1.5} className="text-red-400" />,
     title: "Today's Absent",
     count: 2,
     option: <Ellipsis />,
   },
   {
-    icon: <UserCheck size={32} className="text-green-400" />,
+    icon: <UserCheck size={32} strokeWidth={1.5} className="text-green-400" />,
     title: "Today's Present",
     count: 15,
     option: <Ellipsis />,
@@ -88,7 +88,7 @@ const DashboardPage = () => {
             {/* Low Attendance Alert */}
             <div className="bg-white rounded-xl shadow-md p-4">
               <div className="flex items-center justify-between mb-4">
-                <div className="flex items-center gap-2 text-blue-600 font-semibold text-lg">
+                <div className="flex items-center gap-2 text-gray-800 font-semibold text-lg">
                   <TriangleAlert className='text-red-400' />
                   <h2 className="text-sm">Low Attendance Alert</h2>
                 </div>
@@ -113,8 +113,8 @@ const DashboardPage = () => {
 
             {/* Latest Check-ins */}
             <div className="bg-white rounded-xl shadow-md p-4">
-              <div className="flex items-center gap-2 text-blue-600 font-semibold text-lg mb-4">
-                <Clock className='text-red-400' />
+              <div className="flex items-center gap-2 text-gray-800 font-semibold text-lg mb-4">
+                <Clock className='text-blue-400' />
                 <h2 className="text-sm">Latest Check-ins</h2>
               </div>
 
