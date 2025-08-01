@@ -81,7 +81,7 @@ const StudentManagement = () => {
                 <img src={student.avatar} alt={student.fullName} className="w-full h-full object-cover relative " />
 
                 <span
-                  className={`absolute top-20 right-24 h-4 w-4 rounded-full z-50 ring-2 ring-white shadow-md 
+                  className={`absolute top-20 right-24 h-4 w-4 rounded-full ring-2 ring-white shadow-md 
                     ${student.presence === 'Present' ? 'bg-green-500' : 'bg-gray-500'}`}
                   title={student.presence}
                 ></span>
