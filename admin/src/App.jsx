@@ -23,7 +23,7 @@ const router = createBrowserRouter(
         <Route path="student-management" element={ <StudentManagement /> } />
         <Route path='Location-Settings' element={ <LocationSettings /> }  />
         <Route path='flagged-notification' element={ <FlaggedNotification /> } />
-        <Route path='student-profile/:id' element={ <StudentProfile /> } />
+        <Route path='student-management/:id' element={ <StudentProfile /> } />
       </Route>
     </>
   )

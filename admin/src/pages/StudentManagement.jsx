@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { students } from '../assets/utils/Students'
+import { NavLink } from 'react-router-dom'
 import { Ellipsis, ArrowRight } from 'lucide-react'
 
 const StudentManagement = () => {
@@ -68,11 +69,11 @@ const StudentManagement = () => {
 
               {/* Dropdown */}
               {activeDropdown === index && (
-                <div className="absolute top-12 right-3 z-10 bg-white border border-gray-200 shadow-md rounded-lg text-sm w-40">
+                <NavLink to={ `/student-management/${student.id}` } className="absolute top-12 right-3 z-10 bg-white border border-gray-200 shadow-md rounded-lg text-sm w-40">
                   <button className="block w-full text-left px-4 py-2 hover:bg-gray-100">View Profile</button>
                   <button className="block w-full text-left px-4 py-2 hover:bg-gray-100">Flag Student</button>
                   <button className="block w-full text-left px-4 py-2 hover:bg-gray-100">Suspend</button>
-                </div>
+                </NavLink>
               )}
 
               {/* Avatar */}
@@ -87,6 +88,9 @@ const StudentManagement = () => {
               </div>
 
               <div className="text-center text-sm text-gray-600">
+                <p className={`${student.presence === 'Present' ? 'text-green-500' : 'text-red-500'} py-1 rounded text-sm font-semibold`}>
+                  {student.presence}
+                </p>
                 <span className="font-medium">Last Check-in:</span> {student.lastCheckIn || 'N/A'}
               </div>
 
