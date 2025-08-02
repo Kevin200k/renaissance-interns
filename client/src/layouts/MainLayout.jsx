@@ -3,8 +3,10 @@ import Titlebar from "../../../shared/components/Titlebar";
 import Dashboard from "../components/Dashboard"; // Replace with {children} when ready
 import AttendanceHistory from "../pages/AttendanceHistory";
 import Analytics from "../pages/Analytics";
+import { Outlet } from "react-router-dom"
 
-export default function MainLayout({ children }) {
+
+const MainLayout = () => {
   return (
     <div className="flex h-screen w-full m-0">
       <Sidebar />
@@ -16,13 +18,11 @@ export default function MainLayout({ children }) {
 
         {/* Content area fills remaining space with scroll */}
         <div className="flex-1 overflow-y-auto">
-          {/* Replace Dashboard with children for routing/layout slots */}
-          {/* <AttendanceHistory /> */}
-          <Analytics />
-          {/* <Dashboard /> */}
-          {/* {children} */}
+          <Outlet />
         </div>
       </main>
     </div>
   );
 }
+
+export default MainLayout;
