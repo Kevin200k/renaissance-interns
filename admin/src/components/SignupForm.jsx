@@ -8,7 +8,7 @@ const SignupForm = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center px-4">
-      <div className="w-full max-w-md bg-white p-8">
+      <div className="w-full max-w-md bg-white p-8 shadow-lg rounded-md">
         <h2 className="text-3xl font-bold text-center text-blue-700">Welcome Admins</h2>
         <p className='mb-6 text-center'>Please Sign up to Monitor Attendance</p>
 

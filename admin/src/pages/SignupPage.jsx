@@ -5,7 +5,7 @@ import signup_image from "../../../shared/utils/icons/adminSignup.svg";
 const SignupPage = () => {
   return (
     <>
-      <section className='min-h-screen w-full grid grid-cols-[1fr_1fr]'>
+      <section className='min-h-screen w-full grid grid-cols-[1fr_1fr] bg-gray-50'>
         <div className=''>
           <SignupForm />
         </div>
