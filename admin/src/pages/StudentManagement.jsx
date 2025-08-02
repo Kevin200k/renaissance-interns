@@ -77,11 +77,11 @@ const StudentManagement = () => {
               )}
 
               {/* Avatar */}
-              <div className="w-24 h-24 rounded-full overflow-hidden mx-auto border-4 border-gray-100 ">
-                <img src={student.avatar} alt={student.fullName} className="w-full h-full object-cover relative " />
+              <div className="w-24 h-24  overflow-hidden mx-auto relative">
+                <img src={student.avatar} alt={student.fullName} className="w-full h-full object-cover rounded-full" />
 
                 <span
-                  className={`absolute top-20 right-24 h-4 w-4 rounded-full ring-2 ring-white shadow-md 
+                  className={`absolute bottom-0 right-3 h-4 w-4 rounded-full ring-2 ring-white shadow-md 
                     ${student.presence === 'Present' ? 'bg-green-500' : 'bg-gray-500'}`}
                   title={student.presence}
                 ></span>
