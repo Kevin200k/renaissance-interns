@@ -7,9 +7,10 @@ const SignupForm = () => {
   const [password, setPassword] = useState('')
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4">
-      <div className="w-full max-w-md bg-white p-8 rounded-2xl shadow-lg">
-        <h2 className="text-3xl font-bold text-center text-blue-700 mb-6">Admin Sign Up</h2>
+    <div className="min-h-screen flex items-center justify-center px-4">
+      <div className="w-full max-w-md bg-white p-8">
+        <h2 className="text-3xl font-bold text-center text-blue-700">Welcome Admins</h2>
+        <p className='mb-6 text-center'>Please Sign up to Monitor Attendance</p>
 
         <form className="space-y-5">
           <div>

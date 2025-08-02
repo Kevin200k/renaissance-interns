@@ -9,11 +9,11 @@ function App() {
 
   return (
     <>
-      {/* <SignupPage /> */}
+      <SignupPage />
       {/* <UserSidebar /> */}
-       <MainLayout>
+       {/* <MainLayout>
         <Dashboard />
-      </MainLayout>
+      </MainLayout> */}
     </>
   )
 }

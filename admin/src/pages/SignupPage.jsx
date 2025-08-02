@@ -1,6 +1,6 @@
 import React from 'react'
 import SignupForm from '../components/SignupForm'
-import signup_image from "../../../shared/utils/icons/signup.svg"; 
+import signup_image from "../../../shared/utils/icons/adminSignup.svg"; 
 
 const SignupPage = () => {
   return (
@@ -10,8 +10,8 @@ const SignupPage = () => {
           <SignupForm />
         </div>
 
-        <div className='flex items-center justify-center'>
-          <img src={ signup_image } className= "h-[70%]"alt="Undraw Illustration on this side" />
+        <div className='flex items-end justify-center'>
+          <img src={ signup_image } className= "h-[50%] mb-20 animate-none"alt="Undraw Illustration on this side animate-pulse" />
         </div>
       </section>
     </>
