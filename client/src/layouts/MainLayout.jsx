@@ -1,5 +1,5 @@
 import Sidebar from "../components/UserSidebar";
-import Titlebar from "../components/UserTitlebar";
+import Titlebar from "../../../shared/components/Titlebar";
 import Dashboard from "../components/Dashboard"; // Replace with {children} when ready
 import AttendanceHistory from "../pages/AttendanceHistory";
 import Analytics from "../pages/Analytics";

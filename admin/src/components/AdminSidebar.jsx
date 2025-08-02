@@ -1,36 +1,42 @@
-import { useState } from "react";
+import React,{ useState } from 'react';
 import {
-  Menu,
-  X,
   LayoutDashboard,
-  Clock,
-  BarChart2,
-  Bell,
+  Users,
+  ClipboardList,
+  MapPin,
+  Flag,
   Settings,
   LogOut,
+  Menu,
+  X,
 } from "lucide-react";
+import { NavLink } from 'react-router-dom';
 
 import fullLogo from "../../../shared/utils/icons/logo.png";
 import halfLogo from "../../../shared/utils/icons/logo-half.jpg";
 
-export default function Sidebar() {
-  const [isOpen, setIsOpen] = useState(false);
+
+
+const AdminSidebar = () => {
+
+  const [isOpen, setIsOpen] = useState(false)
 
   const topMenuItems = [
-    { icon: <LayoutDashboard size={20} />, label: "Dashboard" },
-    { icon: <Clock size={20} />, label: "Attendance History" },
-    { icon: <BarChart2 size={20} />, label: "Analytics" },
-    { icon: <Bell size={20} />, label: "Notifications" },
-  ];
+  { icon: <LayoutDashboard size={20} />, label: "Dashboard", link: "admin-dashboard"  },
+  { icon: <ClipboardList size={20} />, label: "Student Management", link: "student-management" },
+  { icon: <MapPin size={20} />, label: "Location Settings", link: "location-settings" },
+  { icon: <Flag size={20} />, label: "Notification Flag", link: "flagged-notification" },
+];
 
-  const bottomMenuItems = [
-    { icon: <Settings size={20} />, label: "Settings", color: "text-gray-700" },
-    { icon: <LogOut size={20} />, label: "Logout", color: "text-red-500" },
-  ];
+const bottomMenuItems = [
+  { icon: <Settings size={20} />, label: "Settings", color: "text-gray-700" },
+  { icon: <LogOut size={20} />, label: "Logout", color: "text-red-500" },
+];
+
 
   return (
     <aside
-      className={`h-screen bg-white shadow-lg transition-all duration-300  top-0 left-0 z-50 flex flex-col ${
+      className={`h-screen bg-white transition-all duration-300  top-0 left-0 z-50 flex flex-col ${
         isOpen ? "w-64" : "w-20"
       }`}
     >
@@ -64,15 +70,20 @@ export default function Sidebar() {
         {/* Top menu items */}
         <div className="flex flex-col gap-2 text-[14.5px]">
           {topMenuItems.map((item, idx) => (
-            <div
+            <NavLink
               key={idx}
-              className={`${
-                isOpen ? "flex items-center px-3" : "flex justify-center"
-              } py-2 mx-2 rounded-md cursor-pointer text-gray-700 hover:bg-purple-50 hover:text-purple-700 transition-colors duration-200`}
+              to={item.link}
+              className={({ isActive }) =>
+                `${
+                  isOpen ? "flex items-center px-3" : "flex justify-center"
+                } py-2 mx-2 rounded-md cursor-pointer transition-colors duration-200 ${
+                  isActive ? "bg-purple-100 text-purple-700" : "text-gray-700 hover:bg-purple-50 hover:text-purple-700"
+                }`
+              }
             >
               <div className="w-6 flex justify-center">{item.icon}</div>
               {isOpen && <span className="ml-3">{item.label}</span>}
-            </div>
+            </NavLink>
           ))}
         </div>
 
@@ -95,4 +106,6 @@ export default function Sidebar() {
       </nav>
     </aside>
   );
-}
+};
+
+export default AdminSidebar;

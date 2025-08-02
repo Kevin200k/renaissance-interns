@@ -1,14 +1,18 @@
 import { ChevronDown, HelpCircle } from "lucide-react";
-import timelyLogo from "../assets/icons/timely.png";
+import timelyLogo from "../utils/icons/timely.png";
 
-export default function UserTitleBar() {
+export default function TitleBar() {
   const userName = "Michael";
 
   return (
-    <div className="flex items-center justify-between px-4 py-4 bg-white shadow-sm">
+    <div className="flex items-center justify-between p-4 bg-white shadow-sm">
       {/* Left: Logo */}
       <div className="flex items-center gap-2">
-        <img src={timelyLogo} alt="Timely Logo" className="h-7" />
+        <img
+          src={timelyLogo}
+          alt="Timely Logo"
+          className="w-[40px] h-8 object-contain"
+        />
       </div>
 
       {/* Right: Avatar + Name + Help */}

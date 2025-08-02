@@ -10,7 +10,7 @@ function App() {
 
   return (
     <>
-      {/* <SignupPage /> */}
+      <SignupPage />
       {/* <UserSidebar /> */}
        <MainLayout>
         {/* <Dashboard /> */}
