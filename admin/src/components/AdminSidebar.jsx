@@ -33,6 +33,7 @@ const bottomMenuItems = [
   { icon: <LogOut size={20} />, label: "Logout", color: "text-red-500" },
 ];
 
+
   return (
     <aside
       className={`h-screen bg-white transition-all duration-300  top-0 left-0 z-50 flex flex-col ${
@@ -71,10 +72,14 @@ const bottomMenuItems = [
           {topMenuItems.map((item, idx) => (
             <NavLink
               key={idx}
-              to={ item.link }
-              className={`${
-                isOpen ? "flex items-center px-3" : "flex justify-center"
-              } py-2 mx-2 rounded-md cursor-pointer text-gray-700 hover:bg-purple-50 hover:text-purple-700 transition-colors duration-200`}
+              to={item.link}
+              className={({ isActive }) =>
+                `${
+                  isOpen ? "flex items-center px-3" : "flex justify-center"
+                } py-2 mx-2 rounded-md cursor-pointer transition-colors duration-200 ${
+                  isActive ? "bg-purple-100 text-purple-700" : "text-gray-700 hover:bg-purple-50 hover:text-purple-700"
+                }`
+              }
             >
               <div className="w-6 flex justify-center">{item.icon}</div>
               {isOpen && <span className="ml-3">{item.label}</span>}
