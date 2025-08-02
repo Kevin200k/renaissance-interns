@@ -4,6 +4,7 @@ import SignupPage from './pages/SignupPage'
 import UserSidebar from './components/UserSidebar'
 import MainLayout from './layouts/MainLayout'
 import Dashboard from './components/Dashboard';
+import AttendanceHistory from './pages/AttendanceHistory';
 
 function App() {
 
@@ -12,7 +13,8 @@ function App() {
       {/* <SignupPage /> */}
       {/* <UserSidebar /> */}
        <MainLayout>
-        <Dashboard />
+        {/* <Dashboard /> */}
+        <AttendanceHistory />
       </MainLayout>
     </>
   )
