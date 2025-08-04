@@ -9,8 +9,8 @@ const FlaggedNotifications = () => {
 
   const fetchFlaggedData = async () => {
     try {
-      const response = await axios.get('/flagged/');
-      setFlaggedData(response.data.flagged); // Adjust if backend structure differs
+      const response = await axios.get('/flagged-attendance/');  // Fixed route
+      setFlaggedData(response.data);  // Assuming backend returns array directly
     } catch (err) {
       console.error('Failed to fetch flagged data:', err);
     } finally {
@@ -20,7 +20,7 @@ const FlaggedNotifications = () => {
 
   const handleReview = async (id) => {
     try {
-      await axios.post(`/flagged/${id}/review`);
+      await axios.post(`/flagged-attendance/${id}/review`);  // Fixed route
       setFlaggedData(prev =>
         prev.map(item => item.id === id ? { ...item, status: 'Reviewed' } : item)
       );
@@ -31,7 +31,7 @@ const FlaggedNotifications = () => {
 
   const handleIgnore = async (id) => {
     try {
-      await axios.post(`/flagged/${id}/ignore`);
+      await axios.post(`/flagged-attendance/${id}/ignore`);  // Fixed route
       setFlaggedData(prev => prev.filter(item => item.id !== id));
     } catch (err) {
       console.error('Failed to ignore flagged record:', err);
@@ -111,4 +111,3 @@ const FlaggedNotifications = () => {
 };
 
 export default FlaggedNotifications;
-1

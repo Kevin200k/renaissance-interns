@@ -17,22 +17,20 @@ const LocationSettings = () => {
 
   const fetchLocations = async () => {
     try {
-      const res = await axios.get("/locations");
+      const res = await axios.get("http://localhost:5000/locations"); // <-- API URL
       console.log("Fetched Locations Response:", res.data);
 
-      // Ensure locations is always an array
       const data = res.data;
-      if (Array.isArray(data.locations)) {
-        setLocations(data.locations);
-      } else if (Array.isArray(data)) {
+      if (Array.isArray(data)) {
         setLocations(data);
+      } else if (Array.isArray(data.locations)) {
+        setLocations(data.locations);
       } else {
-        setLocations([]);  // fallback
+        setLocations([]);
       }
-
     } catch (err) {
       console.error("Failed to fetch locations", err);
-      setLocations([]);  // Prevents undefined.map error
+      setLocations([]);
     } finally {
       setLoading(false);
     }
@@ -46,7 +44,7 @@ const LocationSettings = () => {
     if (!form.name || !form.address || !form.latitude || !form.longitude) return;
 
     try {
-      await axios.post("/locations", {
+      await axios.post("http://localhost:5000/locations", {
         name: form.name,
         address: form.address,
         lat: parseFloat(form.latitude),
@@ -55,7 +53,7 @@ const LocationSettings = () => {
       });
 
       setForm({ name: "", address: "", latitude: "", longitude: "" });
-      fetchLocations();  // Refresh after add
+      fetchLocations();
     } catch (err) {
       console.error("Failed to add location", err);
     }
@@ -63,7 +61,7 @@ const LocationSettings = () => {
 
   const deleteLocation = async (id) => {
     try {
-      await axios.delete(`/locations/${id}`);
+      await axios.delete(`http://localhost:5000/locations/${id}`);
       setLocations(locations.filter((loc) => loc.id !== id));
     } catch (err) {
       console.error("Failed to delete location", err);
@@ -74,7 +72,6 @@ const LocationSettings = () => {
     <div className="max-w-4xl mx-auto p-6 bg-white rounded-lg shadow mt-8">
       <h2 className="text-2xl font-semibold mb-4 text-gray-800">📍 Location Settings</h2>
 
-      {/* Location Form */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
         <input
           name="name"
@@ -116,7 +113,6 @@ const LocationSettings = () => {
         Add Location
       </button>
 
-      {/* Location List */}
       <div className="mt-8">
         <h3 className="text-lg font-semibold mb-2 text-gray-700">Allowed Locations</h3>
 

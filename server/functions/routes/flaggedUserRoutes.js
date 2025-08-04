@@ -11,8 +11,12 @@ const {
 } = require("../controllers/flaggedUserController");
 
 // Routes for Flagged Users
-router.get("/", verifyToken, verifyAdmin, getFlaggedUsers);
-router.post("/", verifyToken, verifyAdmin, flagUser);
-router.delete("/:id", verifyToken, verifyAdmin, unflagUser);
+// router.get("/", verifyToken, verifyAdmin, getFlaggedUsers);
+// router.post("/", verifyToken, verifyAdmin, flagUser);
+// router.delete("/:id", verifyToken, verifyAdmin, unflagUser);
+
+router.get("/", getFlaggedUsers);
+router.post("/", flagUser);
+router.delete("/:id",unflagUser);
 
 module.exports = router;
