@@ -12,15 +12,16 @@ import {
 
 import fullLogo from "../../../shared/utils/icons/logo.png";
 import halfLogo from "../../../shared/utils/icons/logo-half.jpg";
+import { NavLink } from "react-router-dom";
 
 export default function Sidebar() {
   const [isOpen, setIsOpen] = useState(false);
 
   const topMenuItems = [
-    { icon: <LayoutDashboard size={20} />, label: "Dashboard" },
-    { icon: <Clock size={20} />, label: "Attendance History" },
-    { icon: <BarChart2 size={20} />, label: "Analytics" },
-    { icon: <Bell size={20} />, label: "Notifications" },
+    { icon: <LayoutDashboard size={20} />, label: "Dashboard", to: "dashboard" },
+    { icon: <Clock size={20} />, label: "Attendance History", to: "attendance-history" },
+    { icon: <BarChart2 size={20} />, label: "Analytics", to: "analytics" },
+    { icon: <Bell size={20} />, label: "Notifications", to: "notifications" },
   ];
 
   const bottomMenuItems = [
@@ -30,7 +31,7 @@ export default function Sidebar() {
 
   return (
     <aside
-      className={`h-screen bg-white shadow-lg transition-all duration-300  top-0 left-0 z-50 flex flex-col ${
+      className={`h-screen bg-white transition-all duration-300  top-0 left-0 z-50 flex flex-col ${
         isOpen ? "w-64" : "w-20"
       }`}
     >
@@ -64,15 +65,17 @@ export default function Sidebar() {
         {/* Top menu items */}
         <div className="flex flex-col gap-2 text-[14.5px]">
           {topMenuItems.map((item, idx) => (
-            <div
+            <NavLink to={`/${ item.to }`}
               key={idx}
-              className={`${
+              className={({ isActive }) => `${
                 isOpen ? "flex items-center px-3" : "flex justify-center"
-              } py-2 mx-2 rounded-md cursor-pointer text-gray-700 hover:bg-purple-50 hover:text-purple-700 transition-colors duration-200`}
+                } py-2 mx-2 rounded-md cursor-pointer text-gray-700 hover:bg-purple-50 hover:text-purple-700 transition-colors duration-200 ${
+                    isActive ? "bg-purple-100 text-purple-700 font-semibold" : "text-gray-700 hover:bg-purple-50 hover:text-purple-700"
+                  }`}
             >
               <div className="w-6 flex justify-center">{item.icon}</div>
               {isOpen && <span className="ml-3">{item.label}</span>}
-            </div>
+            </NavLink>
           ))}
         </div>
 

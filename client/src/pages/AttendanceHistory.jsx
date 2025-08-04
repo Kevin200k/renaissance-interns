@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Calendar, CheckCircle, SlidersHorizontal, Search, X } from 'lucide-react';
+import { Calendar, CheckCircle, SlidersHorizontal, SortAsc, Search, X } from 'lucide-react';
 
 // Dummy data for the attendance history table
 const attendanceHistoryData = [
@@ -58,12 +58,17 @@ const attendanceHistoryData = [
 
 export default function AttendanceHistory() {
   const [searchTerm, setSearchTerm] = useState('');
+  const [sortStatus, setSortStatus] = useState("")
 
-  const filteredSubmissions = attendanceHistoryData.filter(submission =>
-    submission.datePosted.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    submission.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    submission.status.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const filteredSubmissions = attendanceHistoryData
+    .filter(submission =>
+      submission.datePosted.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      submission.title.toLowerCase().includes(searchTerm.toLowerCase())
+    )
+    .filter(submission =>
+      sortStatus ? submission.status === sortStatus : true
+    );
+
 
   return (
     <div className="min-h-screen bg-gray-100 p-6 font-inter">
@@ -93,13 +98,13 @@ export default function AttendanceHistory() {
         <div className="bg-white rounded-xl shadow-lg p-6 overflow-x-auto">
           {/* Search Bar and Table Title Container */}
           <div className="flex flex-col sm:flex-row justify-between items-center mb-6 gap-4">
-            <h2 className="text-xl font-medium text-gray-800 flex-shrink-0">Attendance Records</h2>
-            <div className="flex-grow flex items-center gap-3 border-b border-gray-200 pb-1 max-w-sm sm:max-w-xs">
-              <Search className="w-4 text-gray-400" />
+            <h2 className="text-3xl font-semibold text-gray-800 flex-shrink-0">Attendance History</h2>
+            <div className="flex-grow flex items-center gap-3 border border-gray-200 rounded-lg px-3 py-2 shadow-sm bg-white max-w-lg">
+              <Search className="w-4 h-4 text-gray-400" />
               <input
                 type="text"
-                placeholder="Search by date or title..."
-                className="flex-grow p-2 outline-none text-gray-700 bg-transparent"
+                placeholder="Search by date, title"
+                className="flex-grow bg-transparent outline-none text-sm text-gray-700 placeholder:text-gray-400"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
               />
@@ -111,6 +116,18 @@ export default function AttendanceHistory() {
                   <X className="w-4 h-4" />
                 </button>
               )}
+              <div className="flex items-center gap-1">
+                <SortAsc className="w-4 h-4 text-gray-400" />
+                <select
+                  value={sortStatus}
+                  onChange={(e) => setSortStatus(e.target.value)}
+                  className="bg-white text-sm text-gray-700 outline-none border-none"
+                >
+                  <option value="" >All</option>
+                  <option value="Attended">Attended</option>
+                  <option value="Absent">Absent</option>
+                </select>
+              </div>
             </div>
           </div>
 
@@ -131,7 +148,7 @@ export default function AttendanceHistory() {
                 </th>
                 <th
                   scope="col"
-                  className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider text-center"
+                  className="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider text-center"
                 >
                   status
                 </th>

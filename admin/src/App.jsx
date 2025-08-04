@@ -16,7 +16,7 @@ import StudentProfile from './pages/StudentProfile'
 const router = createBrowserRouter(
   createRoutesFromElements(
     <>
-      <Route path="/signup" element={<SignupPage />} />
+      <Route index element={<SignupPage />} />
 
       <Route path="/" element={<MainLayout />}>
         <Route path="admin-dashboard" element={<DashboardPage />} />
