@@ -36,7 +36,7 @@ export default function Dashboard() {
   });
 
   return (
-    <div className="min-h-screen bg-gray-50 p-6 flex flex-col space-y-6">
+    <div className="min-h-screen bg-gray-50 p-3 flex flex-col space-y-6">
       
       {/* Greeting */}
       {/* <header>
@@ -51,28 +51,29 @@ export default function Dashboard() {
         <div className="flex flex-col gap-6 lg:w-1/2">
           {/* Attendance CTA */}
           <section>
-              <div className="bg-white rounded-xl shadow-lg p-8 flex flex-col justify-center items-center text-center">
-                <h2 className="text-2xl font-semibold text-gray-800 mb-2">Take Attendance</h2>
-                <p className="text-gray-600 mb-6 max-w-xs">
-                  Mark your presence and keep your attendance history updated.
-                </p>
-                <button className="bg-purple-600 hover:bg-purple-700 text-white rounded-full px-8 py-3 font-semibold transition">
-                  Take Attendance
-                </button>
-              </div>
-              {/* Illustration */}
-              <div className="bg-white rounded-xl shadow-lg p-6 flex justify-center items-center">
-                <img
-                  src={AttendanceIcon}
-                  alt="Attendance Illustration"
-                  className="max-h-64 object-contain"
-                />
-              </div>
+            <div className="bg-white shadow-lg p-6 flex justify-center items-center">
+              <img
+                src={AttendanceIcon}
+                alt="Attendance Illustration"
+                className="max-h-64 object-contain"
+              />
+            </div>
+            <div className="bg-white shadow-lg p-8 flex flex-col justify-center items-center text-center">
+              <h2 className="text-2xl font-semibold text-gray-800 mb-2">Take Attendance</h2>
+              <p className="text-gray-600 mb-6 max-w-xs">
+                Mark your presence and keep your attendance history updated.
+              </p>
+              <button className="bg-purple-600 hover:bg-purple-700 text-white rounded-full px-8 py-3 font-semibold transition">
+                Take Attendance
+              </button>
+            </div>
+            {/* Illustration */}
+            
           </section>
-                      </div>
+        </div>
 
         {/* Right Column: Stats + Summary + Chart */}
-        <div className="flex flex-col gap-6 lg:w-1/2">
+        <div className="flex flex-col gap-4 lg:w-1/2">
           {/* Summary Cards */}
           <section className="grid grid-cols-2 gap-4">
             <SummaryCard
@@ -98,7 +99,7 @@ export default function Dashboard() {
           </section>
 
           {/* Personalized Summary */}
-          <section className="bg-white rounded-xl shadow-lg p-6 flex flex-col gap-2">
+          {/* <section className="bg-white rounded-xl shadow-lg p-6 flex flex-col gap-2">
             <div className="flex items-center gap-4">
               <div className="p-3 bg-purple-50 rounded-full">
                 <Smile className="text-purple-600 w-6 h-6" />
@@ -113,7 +114,7 @@ export default function Dashboard() {
             <p className="text-sm text-gray-600 mt-2">
               Great job maintaining your streak. Keep it going — consistency builds habits!
             </p>
-          </section>
+          </section> */}
 
           {/* Weekly Chart */}
           <section className="bg-white rounded-xl shadow-lg p-6">

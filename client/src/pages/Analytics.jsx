@@ -87,23 +87,26 @@ export default function Analytics() {
   return (
     <div className="min-h-screen p-7 font-inter">
       {/* Date Filter */}
-      <div className="flex items-center justify-end mb-6">
-        <div className="flex items-center gap-2 bg-white rounded-lg shadow-sm p-2">
-          <Calendar className="w-5 h-5 text-gray-500" />
-          <select
-            className="bg-transparent outline-none text-gray-700 font-medium cursor-pointer"
-            value={selectedDateRange}
-            onChange={(e) => setSelectedDateRange(e.target.value)}
-          >
-            {dateRanges.map((range) => (
-              <option key={range.value} value={range.value}>
-                {range.label}
-              </option>
-            ))}
-          </select>
-          <button className="p-1 rounded-md hover:bg-gray-100 transition">
-            <SlidersHorizontal className="w-5 h-5 text-gray-600" />
-          </button>
+      <div className="flex items-center justify-between mb-6">
+        <h1 className='text-3xl font-semibold text-gray-600'>Analytics</h1>
+        <div>
+          <div className="flex items-center gap-2 bg-white rounded-lg shadow-sm p-2">
+            <Calendar className="w-5 h-5 text-gray-500" />
+            <select
+              className="bg-transparent outline-none text-gray-700 font-medium cursor-pointer"
+              value={selectedDateRange}
+              onChange={(e) => setSelectedDateRange(e.target.value)}
+            >
+              {dateRanges.map((range) => (
+                <option key={range.value} value={range.value}>
+                  {range.label}
+                </option>
+              ))}
+            </select>
+            <button className="p-1 rounded-md hover:bg-gray-100 transition">
+              <SlidersHorizontal className="w-5 h-5 text-gray-600" />
+            </button>
+          </div>
         </div>
       </div>
 

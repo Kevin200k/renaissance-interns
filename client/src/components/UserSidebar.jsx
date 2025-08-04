@@ -70,7 +70,7 @@ export default function Sidebar() {
               className={({ isActive }) => `${
                 isOpen ? "flex items-center px-3" : "flex justify-center"
                 } py-2 mx-2 rounded-md cursor-pointer text-gray-700 hover:bg-purple-50 hover:text-purple-700 transition-colors duration-200 ${
-                    isActive ? "bg-purple-100 text-purple-700" : "text-gray-700 hover:bg-purple-50 hover:text-purple-700"
+                    isActive ? "bg-purple-100 text-purple-700 font-semibold" : "text-gray-700 hover:bg-purple-50 hover:text-purple-700"
                   }`}
             >
               <div className="w-6 flex justify-center">{item.icon}</div>
