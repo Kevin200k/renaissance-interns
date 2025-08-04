@@ -1,7 +1,5 @@
-// server\functions\controllers\attendanceController.js
-
 const admin = require("../firebase");
-const logger = require("firebase-functions/logger"); // Add this
+const logger = require("firebase-functions/logger");
 const db = admin.firestore();
 
 exports.markAttendance = async (req, res) => {
@@ -25,6 +23,17 @@ exports.markAttendance = async (req, res) => {
 
     if (!withinRange) {
       logger.warn(`User ${user.uid} is NOT within any attendance zone`);
+
+      // Save flagged attendance for review
+      await db.collection("flagged_attendance").add({
+        userId: user.uid,
+        timestamp: admin.firestore.Timestamp.now(),
+        lat,
+        lng,
+        status: "Unreviewed",
+        issue: "Outside allowed location"
+      });
+
       return res.status(400).json({ error: "You are not within any valid attendance zone." });
     }
 

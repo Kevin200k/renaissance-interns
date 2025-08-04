@@ -1,34 +1,55 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import axios from '../api/axiosInstance';
 import { Bell, CheckCircle, XCircle } from 'lucide-react';
-
-const flaggedData = [
-  {
-    id: 1,
-    name: 'John Doe',
-    userId: 'EMP001',
-    date: '2025-07-31 08:45 AM',
-    issue: 'Outside allowed location (3.1km away)',
-    status: 'Unreviewed',
-  },
-  {
-    id: 2,
-    name: 'Jane Smith',
-    userId: 'EMP002',
-    date: '2025-07-31 09:12 AM',
-    issue: 'Checked in during off-hours',
-    status: 'Unreviewed',
-  },
-  {
-    id: 3,
-    name: 'Michael Brown',
-    userId: 'EMP003',
-    date: '2025-07-30 07:58 AM',
-    issue: 'Location access denied (GPS blocked)',
-    status: 'Reviewed',
-  },
-];
+import DotsLoader from '../components/DotsLoader';
 
 const FlaggedNotifications = () => {
+  const [flaggedData, setFlaggedData] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  const fetchFlaggedData = async () => {
+    try {
+      const response = await axios.get('/flagged/');
+      setFlaggedData(response.data.flagged); // Adjust if backend structure differs
+    } catch (err) {
+      console.error('Failed to fetch flagged data:', err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleReview = async (id) => {
+    try {
+      await axios.post(`/flagged/${id}/review`);
+      setFlaggedData(prev =>
+        prev.map(item => item.id === id ? { ...item, status: 'Reviewed' } : item)
+      );
+    } catch (err) {
+      console.error('Failed to mark reviewed:', err);
+    }
+  };
+
+  const handleIgnore = async (id) => {
+    try {
+      await axios.post(`/flagged/${id}/ignore`);
+      setFlaggedData(prev => prev.filter(item => item.id !== id));
+    } catch (err) {
+      console.error('Failed to ignore flagged record:', err);
+    }
+  };
+
+  useEffect(() => {
+    fetchFlaggedData();
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gray-50">
+        <DotsLoader size="80px" color="#1E40AF" />
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen px-6">
       <div className="mb-6">
@@ -63,12 +84,22 @@ const FlaggedNotifications = () => {
                   </span>
                 </td>
                 <td className="px-6 py-4 text-right space-x-2">
-                  <button className="inline-flex items-center px-3 py-1 rounded text-xs font-medium bg-green-500 text-white hover:bg-green-600">
-                    <CheckCircle className="w-4 h-4 mr-1" /> Mark Reviewed
-                  </button>
-                  <button className="inline-flex items-center px-3 py-1 rounded text-xs font-medium bg-red-500 text-white hover:bg-red-600">
-                    <XCircle className="w-4 h-4 mr-1" /> Ignore
-                  </button>
+                  {record.status !== 'Reviewed' && (
+                    <>
+                      <button
+                        onClick={() => handleReview(record.id)}
+                        className="inline-flex items-center px-3 py-1 rounded text-xs font-medium bg-green-500 text-white hover:bg-green-600"
+                      >
+                        <CheckCircle className="w-4 h-4 mr-1" /> Mark Reviewed
+                      </button>
+                      <button
+                        onClick={() => handleIgnore(record.id)}
+                        className="inline-flex items-center px-3 py-1 rounded text-xs font-medium bg-red-500 text-white hover:bg-red-600"
+                      >
+                        <XCircle className="w-4 h-4 mr-1" /> Ignore
+                      </button>
+                    </>
+                  )}
                 </td>
               </tr>
             ))}
@@ -80,3 +111,4 @@ const FlaggedNotifications = () => {
 };
 
 export default FlaggedNotifications;
+1

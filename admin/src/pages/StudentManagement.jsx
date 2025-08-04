@@ -1,22 +1,64 @@
-import React, { useState } from 'react'
-import { students } from '../assets/utils/Students'
-import { NavLink } from 'react-router-dom'
-import { Ellipsis, ArrowRight } from 'lucide-react'
+import React, { useState, useEffect } from 'react';
+import { NavLink } from 'react-router-dom';
+import { Ellipsis, ArrowRight } from 'lucide-react';
+import axiosInstance from '../api/axiosInstance';
 
 const StudentManagement = () => {
-  const [showAllCards, setShowAllCards] = useState(false)
-  const [activeDropdown, setActiveDropdown] = useState(null)
-  const [searchQuery, setSearchQuery] = useState('')
+  const [students, setStudents] = useState([]);
+  const [showAllCards, setShowAllCards] = useState(false);
+  const [activeDropdown, setActiveDropdown] = useState(null);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [attendanceFilter, setAttendanceFilter] = useState('');
 
-  const filteredStudents = students
-    .filter((student) =>
-      student.fullName.toLowerCase().includes(searchQuery.toLowerCase())
-    )
-    .slice(0, showAllCards ? students.length : 8)
+  const fetchStudents = async () => {
+    try {
+      const response = await axiosInstance.get('/users', {
+        params: {
+          search: searchQuery,
+          attendance: attendanceFilter,
+        },
+      });
+      setStudents(response.data);
+    } catch (error) {
+      console.error('Error fetching students:', error);
+    }
+  };
+
+  useEffect(() => {
+    fetchStudents();
+  }, [searchQuery, attendanceFilter]);
 
   const toggleDropdown = (index) => {
-    setActiveDropdown((prev) => (prev === index ? null : index))
-  }
+    setActiveDropdown((prev) => (prev === index ? null : index));
+  };
+
+  const handleFlagStudent = async (studentId) => {
+    try {
+      await axiosInstance.post('/flagged-users/flag', { uid: studentId });
+      alert('Student flagged successfully');
+      setActiveDropdown(null);
+    } catch (error) {
+      console.error('Error flagging student:', error);
+      alert('Failed to flag student');
+    }
+  };
+
+  const handleSuspendStudent = async (studentId) => {
+    const reason = prompt('Enter suspension reason:');
+    if (!reason) return;
+
+    try {
+      await axiosInstance.post(`/users/${studentId}/suspend`, { reason });
+      alert('Student suspended successfully');
+      fetchStudents();  // Refresh list
+      setActiveDropdown(null);
+    } catch (error) {
+      console.error('Error suspending student:', error);
+      alert('Failed to suspend student');
+    }
+  };
+
+  const filteredStudents = students.slice(0, showAllCards ? students.length : 8);
 
   return (
     <section className="min-h-screen px-6 py-8 bg-gray-50">
@@ -38,7 +80,11 @@ const StudentManagement = () => {
           </div>
 
           {/* Filter */}
-          <select className="px-3 py-1.5 rounded-md border border-gray-300 bg-white shadow-sm text-sm text-gray-700 focus:outline-none focus:ring-1 focus:ring-amber-500">
+          <select
+            value={attendanceFilter}
+            onChange={(e) => setAttendanceFilter(e.target.value)}
+            className="px-3 py-1.5 rounded-md border border-gray-300 bg-white shadow-sm text-sm text-gray-700 focus:outline-none focus:ring-1 focus:ring-amber-500"
+          >
             <option value="">All</option>
             <option value="high">Above 80% Attendance</option>
             <option value="medium">50% - 80% Attendance</option>
@@ -69,24 +115,40 @@ const StudentManagement = () => {
 
               {/* Dropdown */}
               {activeDropdown === index && (
-                <NavLink to={ `/student-management/${student.id}` } className="absolute top-12 right-3 z-10 bg-white border border-gray-200 shadow-md rounded-lg text-sm w-40">
-                  <button className="block w-full text-left px-4 py-2 hover:bg-gray-100">View Profile</button>
-                  <button className="block w-full text-left px-4 py-2 hover:bg-gray-100">Flag Student</button>
-                  <button className="block w-full text-left px-4 py-2 hover:bg-gray-100">Suspend</button>
-                </NavLink>
+                <div className="absolute top-12 right-3 z-10 bg-white border border-gray-200 shadow-md rounded-lg text-sm w-40">
+                  <NavLink
+                    to={`/student-management/${student.id}`}
+                    className="block w-full text-left px-4 py-2 hover:bg-gray-100"
+                  >
+                    View Profile
+                  </NavLink>
+                  <button
+                    className="block w-full text-left px-4 py-2 hover:bg-gray-100"
+                    onClick={() => handleFlagStudent(student.id)}
+                  >
+                    Flag Student
+                  </button>
+                  <button
+                    className="block w-full text-left px-4 py-2 hover:bg-gray-100"
+                    onClick={() => handleSuspendStudent(student.id)}
+                  >
+                    Suspend
+                  </button>
+                </div>
               )}
 
               {/* Avatar */}
-              <div className="w-24 h-24  overflow-hidden mx-auto relative">
-                <img src={student.avatar} alt={student.fullName} className="w-full h-full object-cover rounded-full" />
-
+              <div className="w-24 h-24 overflow-hidden mx-auto relative">
+                <img
+                  src={student.avatar}
+                  alt={student.fullName}
+                  className="w-full h-full object-cover rounded-full"
+                />
                 <span
                   className={`absolute bottom-0 right-3 h-4 w-4 rounded-full ring-2 ring-white shadow-md 
                     ${student.presence === 'Present' ? 'bg-green-500' : 'bg-gray-500'}`}
                   title={student.presence}
                 ></span>
-
-
               </div>
 
               {/* Info */}
@@ -101,7 +163,7 @@ const StudentManagement = () => {
 
               <div className="text-center">
                 <span className="text-sm font-semibold text-gray-700">
-                  Attendance: {student.attendancePercentage ?? student.attendance ?? 0}%
+                  Attendance: {student.attendancePercentage ?? 0}%
                 </span>
               </div>
             </div>
@@ -121,7 +183,7 @@ const StudentManagement = () => {
         </div>
       )}
     </section>
-  )
-}
+  );
+};
 
-export default StudentManagement
+export default StudentManagement;

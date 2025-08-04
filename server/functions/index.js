@@ -1,44 +1,88 @@
-// index.js
+// const functions = require("firebase-functions");
+// const express = require("express");
+// const cors = require("cors");
+// const admin = require("firebase-admin");
 
-const { setGlobalOptions } = require("firebase-functions");
-const { onRequest } = require("firebase-functions/v2/https");
-const logger = require("firebase-functions/logger");
+// admin.initializeApp();
+// const db = admin.firestore();
+
+// const app = express();
+
+// app.use(cors({ origin: true }));
+// app.use(express.json());
+
+// // Routes Logging
+// app.use((req, res, next) => {
+//   console.log(`Incoming request: ${req.method} ${req.url}`);
+//   next();
+// });
+
+// // Import Routes
+// const adminRoutes = require("./routes/adminRoutes");
+// const attendanceRoutes = require("./routes/attendanceRoutes");
+// const userRoutes = require("./routes/userRoutes");
+// const flaggedRoutes = require("./routes/flaggedRoutes");
+// const flaggedUserRoutes = require("./routes/flaggedUserRoutes");
+// const locationRoutes = require("./routes/locationRoutes");
+
+// // Use Routes
+// app.use("/admin", adminRoutes);
+// app.use("/attendance", attendanceRoutes);
+// app.use("/flagged-attendance", flaggedRoutes);
+// app.use("/users", userRoutes);
+// app.use("/flagged-users", flaggedUserRoutes);
+// app.use("/locations", locationRoutes);
+
+// // Health Check
+// app.get("/", (req, res) => {
+//   res.send("✅ Attendance API is working!");
+// });
+
+// // Export Express App as Firebase Function (v1 syntax)
+// exports.api = functions.https.onRequest(app);
+
 const express = require("express");
 const cors = require("cors");
 const admin = require("firebase-admin");
 
-admin.initializeApp();
+// Initialize Firebase Admin SDK
+const serviceAccount = require("./serviceAccountKey.json"); // <-- You'll need to download this from Firebase Console
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount),
+});
 const db = admin.firestore();
-
-// Global Firebase Functions Options
-setGlobalOptions({ maxInstances: 10 });
 
 // Initialize Express App
 const app = express();
-app.use(cors({ origin: true }));
+const PORT = 5000; // You can choose any port
+
+// Middleware
+app.use(cors({ origin: "http://localhost:3000" })); // Frontend URL
 app.use(express.json());
 
-// Log all incoming requests
-app.use((req, res, next) => {
-  logger.info(`Incoming request: ${req.method} ${req.url}`);
-  next();
-});
 
-// 🔁 Routes
+// Import routes
 const adminRoutes = require("./routes/adminRoutes");
 const attendanceRoutes = require("./routes/attendanceRoutes");
-const userRoutes = require("./routes/userRoutes"); // Assuming you renamed one to userRoutes
+const userRoutes = require("./routes/userRoutes");
+const flaggedRoutes = require("./routes/flaggedRoutes");
+const flaggedUserRoutes = require("./routes/flaggedUserRoutes");
+const locationRoutes = require("./routes/locationRoutes");
 
-// 📌 Register routes
+// Register routes
 app.use("/admin", adminRoutes);
 app.use("/attendance", attendanceRoutes);
+app.use("/flagged-attendance", flaggedRoutes);
 app.use("/users", userRoutes);
+app.use("/flagged-users", flaggedUserRoutes);
+app.use("/locations", locationRoutes);
 
-// 🌐 Health Check
+// Health Check
 app.get("/", (req, res) => {
-  logger.info("Health check route hit.");
-  res.send("✅ Attendance API is working!");
+  res.send("✅ Local Express API is running!");
 });
 
-// 📤 Export the Cloud Function
-exports.api = onRequest(app);
+// Start Server
+app.listen(PORT, () => {
+  console.log(`🚀 Server running at http://localhost:${PORT}`);
+});
