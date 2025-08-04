@@ -123,7 +123,7 @@ export default function AttendanceHistory() {
                   onChange={(e) => setSortStatus(e.target.value)}
                   className="bg-white text-sm text-gray-700 outline-none border-none"
                 >
-                  <option value="" disabled>Sort</option>
+                  <option value="" >All</option>
                   <option value="Attended">Attended</option>
                   <option value="Absent">Absent</option>
                 </select>
