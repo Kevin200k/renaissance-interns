@@ -1,7 +1,12 @@
 import './index.css';
 import { useState } from 'react'
 
-import { Route, createBrowserRouter, createRoutesFromElements, RouterProvider } from "react-router-dom"
+import { 
+  Route,
+  createBrowserRouter,
+  createRoutesFromElements,
+  RouterProvider } from "react-router-dom"
+import ProtectedRoute from './components/ProtectedRoute';
 import SignupPage from './pages/SignupPage'
 import MainLayout from '../src/layouts/MainLayout';
 import Analytics from '../src/pages/Analytics'
@@ -15,7 +20,10 @@ const router = createBrowserRouter(
     <>
       <Route index element={ <SignupPage /> } />
       <Route path='/' element={ <MainLayout /> } >
-        <Route path='dashboard' element={ <Dashboard /> } />
+        <Route path='dashboard' element={ 
+          <ProtectedRoute>
+            <Dashboard />
+          </ProtectedRoute> } />
         <Route path='attendance-history' element={ <AttendanceHistory /> } />
         <Route path='analytics' element={ <Analytics /> } />
         <Route path='notifications' element={ <Notifications /> } />
@@ -25,7 +33,9 @@ const router = createBrowserRouter(
 )
 
 const App = () => {
-  return <RouterProvider router={ router } />
+  return(
+    <RouterProvider router={ router } />
+  )
 }
 
 export default App
