@@ -57,7 +57,9 @@ const app = express();
 const PORT = 5000; // You can choose any port
 
 // Middleware
-app.use(cors({ origin: "http://localhost:3000" })); // Frontend URL
+app.use(cors({ origin: "http://localhost:5173" })); // Frontend URL
+// app.use(cors({ origin: "http://localhost:3000" })); // Frontend URL
+
 app.use(express.json());
 
 
