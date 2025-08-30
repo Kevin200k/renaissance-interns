@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { signup, loginWithGoogle } from "../firebase/auth";
+import { signup, loginWithGoogle } from "../../../shared/firebase/auth";
 import { Mail, Lock } from "lucide-react"; // <-- import icons
 
 export default function SignupForm() {

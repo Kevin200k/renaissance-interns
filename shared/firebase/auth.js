@@ -1,11 +1,19 @@
-// src/authService.js
-import { auth, googleProvider } from "./config";
+import { auth, googleProvider, db } from "./config"; // db also comes from your config
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   signOut,
-  getIdToken
+  getIdToken,
+  signInWithPopup,
+  setPersistence,
+  browserLocalPersistence
 } from "firebase/auth";
+import { doc, getDoc, setDoc } from "firebase/firestore";
+
+// Set auth persistence so the session survives reloads
+setPersistence(auth, browserLocalPersistence).catch((err) => {
+  console.error("Failed to set persistence", err);
+});
 
 // Sign up
 export const signup = async (email, password) => {
@@ -32,5 +40,21 @@ export const getToken = async () => {
 // Google Sign-In
 export const loginWithGoogle = async () => {
   const result = await signInWithPopup(auth, googleProvider);
-  return result.user;
+  const user = result.user;
+
+  // Save user to Firestore if it doesn't exist
+  const userRef = doc(db, "users", user.uid);
+  const userSnap = await getDoc(userRef);
+
+  if (!userSnap.exists()) {
+    await setDoc(userRef, {
+      uid: user.uid,
+      email: user.email,
+      name: user.displayName,
+      photoURL: user.photoURL,
+      createdAt: new Date()
+    });
+  }
+
+  return user;
 };
