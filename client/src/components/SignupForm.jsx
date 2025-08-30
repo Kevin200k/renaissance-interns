@@ -27,9 +27,9 @@ export default function SignupForm() {
   };
 
   return (
-    <form onSubmit={handleSignup} className="p-8 rounded w-[70%]">
+    <form onSubmit={handleSignup} className="p-8 w-[70%] ">
       <div>
-        <h1 className="text-4xl font-medium mt-10">Welcome Interns</h1>
+        <h1 className="text-4xl font-medium ">Welcome Interns</h1>
         <p className="text-md font-normal">Please sign up to take attendance</p>
       </div>
 
@@ -38,7 +38,7 @@ export default function SignupForm() {
       <button
         type="button"
         onClick={handleGoogleSignup}
-        className="flex items-center justify-center mt-5 px-4 py-2 w-full border border-gray-300 rounded-md text-gray-700 bg-white hover:bg-gray-50"
+        className="flex items-center justify-center my-5 px-4 py-2 w-full border border-gray-300 rounded-md text-gray-700 bg-white hover:bg-gray-50"
       >
         <img
           src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg"
